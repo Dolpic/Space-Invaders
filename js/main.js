@@ -8,7 +8,7 @@ function main(){
 
 // TODO encapsuler tout ca dans un objet
 function preload(){
-  this.load.setBaseURL('http://localhost/Space-Invaders/ressources/')
+  this.load.setBaseURL('ressources/')
   this.input.keyboard.addCapture('UP, DOWN, LEFT, RIGHT')
   
   loadSprites(this)
