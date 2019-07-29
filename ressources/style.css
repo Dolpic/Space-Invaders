@@ -1,0 +1,13 @@
+@font-face {
+    font-family: courierCode;
+    src: url("font/Courier_Prime_Code.woff2");
+  }
+  body{
+    background-color: black;
+    background-position-x: center;
+    text-align:center;
+  }
+  #gameCanvas{
+    border:4px solid #262626;
+    box-shadow: 0px 0px 20px black;
+  }

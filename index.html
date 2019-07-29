@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="ressources/style.css">
+  </head>
+  <body>
+    <!--<div id="startButton" style="display:none;">
+      <button onclick="toggleFullScreen(document.getElementById('gameCanvas'));start();">Démarrer</button>
+    </div>-->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- All JS Files -->
+    <script src="js/phaser.js"></script>
+    <script src="js/spritesAndAnimations.js"></script>
+    <script src="js/various.js"></script>
+
+    <script src="js/classes/objects/background.js"></script>
+    <script src="js/classes/objects/bullet.js"></script>
+    <script src="js/classes/objects/brick.js"></script>
+    <script src="js/classes/objects/obstacle.js"></script>
+    <script src="js/classes/objects/scoreBar.js"></script>
+    <script src="js/classes/objects/objectsTable.js"></script>
+
+    <script src="js/classes/enemies/enemy.js"></script>
+    <script src="js/classes/enemies/boss.js"></script>
+
+    <script src="js/classes/player.js"></script>
+
+    <script src="js/classes/levels/titleScreen.js"></script>
+    <script src="js/classes/levels/level.js"></script>
+    <script src="js/classes/levels/level1.js"></script>
+    <script src="js/classes/levels/level2.js"></script>
+    <script src="js/classes/levels/level3.js"></script>
+    <script src="js/classes/levels/level4.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <script>
+      /* Main configuration */
+      const GAME_WIDTH  = 1000;
+      const GAME_HEIGHT = 700;
+      const GAME_RATIO  = GAME_HEIGHT/GAME_WIDTH;
+
+      phaserConfig = {
+          canvas: document.getElementById('gameCanvas'),
+
+          type: Phaser.CANVAS,
+          antialias : false,
+
+          physics: {default: 'arcade'/*,
+            arcade : {debug: true}*/
+          },
+
+          scene: {
+            preload: preload,
+            create: create,
+            update: update
+          },
+
+          width:  GAME_WIDTH,
+          height: GAME_HEIGHT,
+
+          ratio: GAME_RATIO
+      };
+
+      // Start the game
+      main();
+
+    </script>
+  </body>
+</html>
