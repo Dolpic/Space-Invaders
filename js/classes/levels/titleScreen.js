@@ -1,6 +1,6 @@
 class TitleScreen{
     constructor(game){
-        this.game = game;
+        this.game = game
     }
 
     create(){
@@ -15,20 +15,22 @@ class TitleScreen{
     }
 
     update(){
-        if(this.game.keyboard.space.isDown){
-            this.nextLevel()
-        }
-
-        if(this.player.x >= GAME_WIDTH/3){
-            this.player.body.velocity.x = 0
-        }
-        if(this.enemy.x <= 2*GAME_WIDTH/3){
-            this.enemy.body.velocity.x = 0
+        if(!this.destroyed){
+            
+            if(this.game.keyboard.space.isDown){
+                this.nextLevel()
+            }
+            if(this.player.x >= GAME_WIDTH/3){
+                this.player.body.velocity.x = 0
+            }
+            if(this.enemy.x <= 2*GAME_WIDTH/3){
+                this.enemy.body.velocity.x = 0
+            }
         }
     }
 
     nextLevel(){
-        setSubtitle(this.game, '');
+        setSubtitle(this.game, '')
         this.game.currentLevel = new Level4(this.game)
         this.game.currentLevel.create()
         this.destroy()
