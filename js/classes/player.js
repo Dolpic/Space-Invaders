@@ -1,69 +1,29 @@
 class Player{
     constructor(game, startX, startY, sprite){
-        this.speed = 250
-        this.bulletSpeed = 250
-        this.shootSpeed = 200
-        this.destroyed = false
+        this.speed               = 250
+        this.bulletSpeed         = 250
+        this.shootSpeed          = 200
+        this.invulnerabilityTime = 3000
+        this.hitPenalty          = -100
+
+        this.destroyed          = false
         this.controlledByPlayer = true
 
         this.lastShoot = this.shootSpeed
         this.lastHit = 0
-        this.invulnerabilityTime = 3000
         this.game = game
         this.spriteName = sprite
 
-        this.sprite = this.game.physics.add.sprite(startX, startY, this.spriteName);
+        this.sprite = this.game.scene.physics.add.sprite(startX, startY, this.spriteName);
         this.sprite.setCollideWorldBounds(true);
     }
-
-    manageKeyboard(){
-        this.sprite.body.velocity.x = 0
-        this.sprite.body.velocity.y = 0
-
-        if(this.game.keyboard.left.isDown){
-            this.sprite.body.velocity.x = -1
-        }
-        if(this.game.keyboard.right.isDown){
-            this.sprite.body.velocity.x = 1
-        }
-        if(this.game.keyboard.up.isDown){
-            this.sprite.body.velocity.y = -1
-        }
-        if(this.game.keyboard.down.isDown){
-            this.sprite.body.velocity.y = 1
-        }
-        if(this.game.keyboard.space.isDown && Date.now() - this.lastShoot >= this.shootSpeed){
-            this.shoot()
-        }
-
-        this.sprite.body.velocity.normalize().scale(this.speed);
-    }
-
     shoot(){
-        var bullet = new Bullet(this.game, this.sprite.getCenter(), this.bulletSpeed,'bullet');
-        bullet.sprite.body.velocity.setTo(0,-1);
-
-        this.game.currentLevel.bullets.add(bullet);
-
-        this.game.physics.add.overlap(this.game.currentLevel.enemies.getSprite(), 
-                                      bullet.sprite, 
-                                      function(a,b){
-                                          this.game.currentLevel.enemies.damage(a)
-                                          bullet.damage(b)
-                                      }.bind(this)
-                                    );
-
-        this.game.physics.add.overlap(this.game.currentLevel.bricks.getSprite(), 
-                                      bullet.sprite, 
-                                      function(a,b){
-                                          this.game.currentLevel.bricks.damage(a)
-                                          bullet.damage(b)
-                                      }.bind(this)
-                                    );
-
-        if(this.game.currentLevel.boss != undefined && this.game.currentLevel.boss.started){
-            this.game.physics.add.overlap(this.game.currentLevel.boss.sprite, bullet.sprite, function(a,b){this.game.currentLevel.boss.damage(a);bullet.damage(b);}.bind(this));
-        }
+        var vector = new Phaser.Math.Vector2(0, -1)
+        var bullet = new Bullet(this.game, this.sprite.getCenter(), this.bulletSpeed, 'bullet', vector);
+        
+        this.game.currentLevel.addEnemiesCollider(bullet)
+        this.game.currentLevel.addBricksCollider(bullet)
+        this.game.currentLevel.addBossCollider(bullet)
 
         this.lastShoot = Date.now();
     }
@@ -71,9 +31,31 @@ class Player{
     update(){
         if(this.controlledByPlayer){
 
-            this.manageKeyboard()
+            var keyboard = this.game.keyboard
+            var velocity = this.sprite.body.velocity
+    
+            velocity.x = 0
+            velocity.y = 0
+    
+            if(keyboard.left.isDown){
+                velocity.x = -1
+            }
+            if(keyboard.right.isDown){
+                velocity.x = 1
+            }
+            if(keyboard.up.isDown){
+                velocity.y = -1
+            }
+            if(keyboard.down.isDown){
+                velocity.y = 1
+            }
+            if(keyboard.space.isDown && Date.now() - this.lastShoot >= this.shootSpeed){
+                this.shoot()
+            }
+    
+            velocity.normalize().scale(this.speed);
 
-            if(this.sprite.body.velocity.x == 0 && this.sprite.body.velocity.y == 0){
+            if(velocity.x == 0 && velocity.y == 0){
                 this.sprite.anims.play('relax', true);
             }else{
                 this.sprite.anims.play('move', true);
@@ -84,11 +66,11 @@ class Player{
     damage(){
         if(this.controlledByPlayer && Date.now() - this.lastHit > this.invulnerabilityTime){
             this.game.remainingLives--;
-            this.game.score -= 100;
+            this.game.score += this.hitPenalty;
             this.lastHit = Date.now();
             Player.blink(this.sprite, 0, this.invulnerabilityTime);
             if(this.game.remainingLives <= 0){
-                gameOver(this.game);
+                this.game.gameOver(this.game);
             }
         }
     }
@@ -111,5 +93,8 @@ class Player{
             sprite.tint = 0xffffff;
         }
     }
-}
 
+    getSprite(){
+        return this.sprite
+    }
+}

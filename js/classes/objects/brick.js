@@ -1,7 +1,7 @@
 class Brick{
     constructor(game, posX, posY){
         this.game = game;
-        this.sprite = this.game.physics.add.sprite(posX, posY, 'brick');
+        this.sprite = this.game.scene.physics.add.sprite(posX, posY, 'brick');
         this.destroyed = false;
     }
 

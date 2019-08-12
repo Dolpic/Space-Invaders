@@ -11,7 +11,7 @@
 
     <!-- All JS Files -->
     <script src="js/phaser.js"></script>
-    <script src="js/spritesAndAnimations.js"></script>
+    <script src="js/loader.js"></script>
     <script src="js/various.js"></script>
 
     <script src="js/classes/objects/background.js"></script>
@@ -36,36 +36,7 @@
     <script src="js/main.js"></script>
 
     <script>
-      /* Main configuration */
-      const GAME_WIDTH  = 1000;
-      const GAME_HEIGHT = 700;
-      const GAME_RATIO  = GAME_HEIGHT/GAME_WIDTH;
-
-      phaserConfig = {
-          canvas: document.getElementById('gameCanvas'),
-
-          type: Phaser.WEBGL,
-          antialias : false,
-
-          physics: {default: 'arcade'/*,
-            arcade : {debug: true}*/
-          },
-
-          scene: {
-            preload: preload,
-            create: create,
-            update: update
-          },
-
-          width:  GAME_WIDTH,
-          height: GAME_HEIGHT,
-
-          ratio: GAME_RATIO
-      };
-
-      // Start the game
-      main();
-
+      new SpaceInvaders(document.getElementById('gameCanvas'), 1000, 700).start()
     </script>
   </body>
 </html>

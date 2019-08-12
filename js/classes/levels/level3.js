@@ -4,9 +4,7 @@ class Level3 extends Level{
     }
 
     create(){
-        setTitle(this.game, 'Level 3');
-
-        this.player = new Player(this.game, GAME_WIDTH/2, 620, 'player');
+        this.game.setTitle('Level 3');
         this.scoreBar.create();
 
         for(var i=0; i<10; i++){
@@ -42,14 +40,14 @@ class Level3 extends Level{
             this.enemies.add(enemy);
         }
     
-        for(var i=0; i<Math.ceil(GAME_WIDTH/12); i++){
+        for(var i=0; i<Math.ceil(this.game.width/12); i++){
             this.obstacles.add(new Obstacle(this.game, i*12, 570, true)).sprite.setImmovable(true);
             this.obstacles.add(new Obstacle(this.game, i*12, 653, false)).sprite.setImmovable(true);
         }
 
         var bluePrint = [[4,2,0,2,3,3,4],[2,6,10,6,4,4,2]];
         for(var i=1; i<8; i++){
-            this.createBricksGroup(i*GAME_WIDTH/8, 450, bluePrint);
+            this.createBricksGroup(i*this.game.width/8, 450, bluePrint);
         }
 
         this.setOverlap()

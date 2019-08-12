@@ -10,13 +10,15 @@ class Level{
         this.finished  = false
 
         this.scoreBar.currentScore = this.game.score
+
+        this.player = new Player(this.game,this.game.width/2, 620, 'player');
     }
 
     start(){
         if(!this.started){
             this.enemies.start()
             this.started = true
-            setTitle(this.game, "")
+            this.game.setTitle("")
         }
     }
 
@@ -36,7 +38,7 @@ class Level{
         this.bricks.update();
 
         if(this.enemies.count() == 0 && !this.finished && (this.boss === undefined || this.boss.destroyed)){
-            setTitle(this.game, 'Well Done !')
+            this.game.setTitle('Well Done !')
             this.player.controlledByPlayer = false
             this.game.currentLevel.toNextLevel()
             this.finished = true
@@ -71,21 +73,21 @@ class Level{
     }
 
     nextLevel(newLevel){
-        setSubtitle(this.game, '');
+        this.game.setSubtitle('');
         this.game.currentLevel.destroy()
         this.game.currentLevel = newLevel
         this.game.currentLevel.create()
     }
 
     setOverlap(){
-        this.game.physics.add.overlap(  this.bricks.getSprite(), 
+        this.game.scene.physics.add.overlap(  this.bricks.getSprite(), 
                                         this.enemies.getSprite(), 
                                         function(a,b){
                                             this.game.currentLevel.bricks.damage(a)
                                         }.bind(this)
                                     )
 
-        this.game.physics.add.overlap(  this.obstacles.getSprite(), 
+        this.game.scene.physics.add.overlap(  this.obstacles.getSprite(), 
                                         this.enemies.getSprite(), 
                                         function(a,b){
                                             gameOver(this.game.currentLevel.game)
@@ -94,7 +96,37 @@ class Level{
     }
 
     setCollider(){
-        this.playerCollider = this.game.physics.add.collider(this.player.sprite, this.obstacles.getSprite())
+        this.playerCollider = this.game.scene.physics.add.collider(this.player.sprite, this.obstacles.getSprite())
     }
 
+    addPlayerCollider(object){
+        if(isDefined(this.player)){
+            this.game.scene.physics.add.overlap(this.player.getSprite(), object.getSprite(), this.generateColliderFunction(this.player, object));
+        }
+    }
+
+    addEnemiesCollider(object){
+        this.game.scene.physics.add.overlap(this.enemies.getSprite(), object.getSprite(), this.generateColliderFunction(this.enemies, object));
+    }
+
+    addBricksCollider(object){
+        this.game.scene.physics.add.overlap(this.bricks.getSprite(), object.getSprite(), this.generateColliderFunction(this.bricks, object));
+    }
+
+    addBulletsCollider(object){
+        this.game.scene.physics.add.overlap(this.bullets.getSprite(), object.getSprite(), this.generateColliderFunction(this.bullets, object));
+    }
+
+    addBossCollider(object){
+        if(isDefined(this.boss)){
+            this.game.scene.physics.add.overlap(this.boss.getSprite(), object.getSprite(), this.generateColliderFunction(this.boss, object));
+        }
+    }
+
+    generateColliderFunction(obj1, obj2){
+        return function(a, b){
+            obj1.damage()
+            obj2.damage()
+        }.bind(this)
+    }
 }

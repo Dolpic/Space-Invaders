@@ -4,8 +4,7 @@ class Level1 extends Level{
     }
 
     create(){
-        setTitle(this.game, 'Level 1');
-        this.player = new Player(this.game,GAME_WIDTH/2, 620, 'player');
+        this.game.setTitle('Level 1');
         this.scoreBar.create();
 
         for(var i=0; i<11; i++){
@@ -31,16 +30,16 @@ class Level1 extends Level{
             this.enemies.add(enemy);
         }
     
-        for(var i=0; i<Math.ceil(GAME_WIDTH/12); i++){
+        for(var i=0; i<Math.ceil(this.game.width/12); i++){
             this.obstacles.add(new Obstacle(this.game, i*12, 570, true)).sprite.setImmovable(true);
             this.obstacles.add(new Obstacle(this.game, i*12, 653, false)).sprite.setImmovable(true);
         }
 
         var bluePrint = [[4,2,1,1,0],[6,10,12,12,14]];
-        this.createBricksGroup(GAME_WIDTH/6, 500, bluePrint);
-        this.createBricksGroup(2*GAME_WIDTH/6, 500, bluePrint);
-        this.createBricksGroup(4*GAME_WIDTH/6, 500, bluePrint);
-        this.createBricksGroup(5*GAME_WIDTH/6, 500, bluePrint);
+        this.createBricksGroup(this.game.width/6, 500, bluePrint);
+        this.createBricksGroup(2*this.game.width/6, 500, bluePrint);
+        this.createBricksGroup(4*this.game.width/6, 500, bluePrint);
+        this.createBricksGroup(5*this.game.width/6, 500, bluePrint);
 
         this.setOverlap()
         this.setCollider()
