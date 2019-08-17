@@ -4,8 +4,7 @@ class Level3 extends Level{
     }
 
     create(){
-        this.game.setTitle('Level 3');
-        this.scoreBar.create();
+        super.create("Level 3")
 
         for(var i=0; i<10; i++){
             var enemy = new Enemy(this.game, 50+100*i, 60, this.player, 'enemy2', 0xff0000);

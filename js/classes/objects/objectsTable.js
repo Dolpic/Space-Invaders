@@ -1,10 +1,10 @@
 class ObjectsTable{
     constructor(){
-        this.mainTable = [];
+        this.mainTable = []
     }
 
     add(element){
-        this.mainTable.push(element);
+        this.mainTable.push(element)
         return element;
     }
 
@@ -15,9 +15,9 @@ class ObjectsTable{
     update(){
         for(var i=0; i<this.mainTable.length; i++){
             if(this.mainTable[i].destroyed){
-                this.mainTable.splice(i, 1);
+                this.mainTable.splice(i, 1)
             }else{
-                this.mainTable[i].update();
+                this.mainTable[i].update()
             }
         }
     }
@@ -28,14 +28,14 @@ class ObjectsTable{
 
     start(){
         for(var i=0; i<this.mainTable.length; i++){
-            this.mainTable[i].start();
+            this.mainTable[i].start()
         }
     }
 
     destroyElement(element){
         for(var i=0; i<this.mainTable.length; i++){
             if(this.mainTable[i] == element){
-                this.mainTable[i].destroy();
+                this.mainTable[i].destroy()
                 return;
             }
         }
@@ -44,7 +44,7 @@ class ObjectsTable{
     getSprite(){
         var result = [];
         for(var i=0; i<this.mainTable.length; i++){
-            result.push(this.mainTable[i].sprite);
+            result.push(this.mainTable[i].sprite)
         }
         return result;
     }
@@ -52,14 +52,14 @@ class ObjectsTable{
     damage(element){
         for(var i=0; i<this.mainTable.length; i++){
             if(this.mainTable[i].sprite == element){
-                this.mainTable[i].damage();
+                this.mainTable[i].damage()
             }
         }
     }
 
     destroy(){
         for(var i=0; i<this.mainTable.length; i++){
-            this.mainTable[i].destroy();
+            this.mainTable[i].destroy()
         }
     }
 }

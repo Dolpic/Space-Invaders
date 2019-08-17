@@ -1,6 +1,6 @@
-class Background{
+class Background extends Object{
     constructor(game){
-        this.game = game
+        super(game, 0, 0, undefined)
         this.starTable = []
     }
 

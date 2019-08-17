@@ -1,7 +1,6 @@
-class Obstacle{
+class Obstacle extends Object{
     constructor(game, posX, posY, visible){
-        this.game = game;
-        this.sprite = this.game.scene.physics.add.sprite(posX, posY, 'barrier');
+        super(game, posX, posY, 'barrier')
 
         if(visible){
             this.sprite.anims.play("barrier", true);
@@ -13,8 +12,4 @@ class Obstacle{
     update(){}
 
     damage(){}
-
-    destroy(){
-        this.sprite.destroy();
-    }
 }

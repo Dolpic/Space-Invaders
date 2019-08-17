@@ -1,9 +1,9 @@
-class Enemy{
+class Enemy extends Object{
     constructor(game, startX, startY, target, sprite, tint){
-        this.game = game
-        this.spriteName = sprite
+        super(game, startX, startY, sprite)
+
         this.target     = target
-        this.destroyed  = false
+
         this.started    = false
         this.invincible = false
 
@@ -11,7 +11,7 @@ class Enemy{
         this.shootSpeed  = 1300
         this.bulletSpeed = 160
         this.points      = 20
-        this.maxLife     = 1
+        this.maxLife     = 0
         this.life        = this.maxLife
 
         this.lastShoot = this.shootSpeed
@@ -20,8 +20,7 @@ class Enemy{
         this.startY = startY
         this.startX = startX
 
-        this.sprite = this.game.scene.physics.add.sprite(startX, startY, this.spriteName);
-        this.sprite.anims.play(this.spriteName, true)
+        this.sprite.anims.play(sprite, true)
         this.sprite.tint = tint
         this.sprite.setDepth(10)
 
@@ -61,17 +60,13 @@ class Enemy{
     }
 
     damage(){
+
         if(!this.invincible && this.life == 0){
             this.game.score += this.points
             this.destroy()
         }else{
             this.life--
         }
-    }
-
-    destroy(){
-        this.sprite.destroy()
-        this.destroyed = true
     }
 
     defaultMove(){
@@ -100,9 +95,5 @@ class Enemy{
        // this.sprite.body.velocity.x = 1;
         this.sprite.body.velocity.normalize().scale(this.speed)
 
-    }
-
-    getSprite(){
-        return this.sprite
     }
 }

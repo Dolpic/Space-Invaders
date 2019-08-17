@@ -1,8 +1,6 @@
-class Brick{
+class Brick extends Object{
     constructor(game, posX, posY){
-        this.game = game;
-        this.sprite = this.game.scene.physics.add.sprite(posX, posY, 'brick');
-        this.destroyed = false;
+        super(game, posX, posY, 'brick')
     }
 
     update(){}
@@ -11,8 +9,7 @@ class Brick{
         this.destroy();
     }
 
-    destroy(){
-        this.sprite.destroy();
-        this.destroyed = true;
+    getSprite(){
+        return this.sprite
     }
 }

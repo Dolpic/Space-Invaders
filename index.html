@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="ressources/style.css">
   </head>
   <body>
@@ -13,6 +14,7 @@
     <script src="js/phaser.js"></script>
     <script src="js/loader.js"></script>
     <script src="js/various.js"></script>
+    <script src="js/classes/object.js"></script>
 
     <script src="js/classes/objects/background.js"></script>
     <script src="js/classes/objects/bullet.js"></script>
@@ -20,11 +22,10 @@
     <script src="js/classes/objects/obstacle.js"></script>
     <script src="js/classes/objects/scoreBar.js"></script>
     <script src="js/classes/objects/objectsTable.js"></script>
+    <script src="js/classes/objects/player.js"></script>
 
-    <script src="js/classes/enemies/enemy.js"></script>
-    <script src="js/classes/enemies/boss.js"></script>
-
-    <script src="js/classes/player.js"></script>
+    <script src="js/classes/objects/enemies/enemy.js"></script>
+    <script src="js/classes/objects/enemies/boss.js"></script>
 
     <script src="js/classes/levels/titleScreen.js"></script>
     <script src="js/classes/levels/level.js"></script>
@@ -32,11 +33,19 @@
     <script src="js/classes/levels/level2.js"></script>
     <script src="js/classes/levels/level3.js"></script>
     <script src="js/classes/levels/level4.js"></script>
+    <script src="js/classes/levels/scoreboard.js"></script>
 
     <script src="js/main.js"></script>
 
     <script>
+      // Evite le retour en arrière avec un backspace, pour effacer
+      // des lettres lors de la saisie du nom dans le scoreboard
+      window.onkeydown = function(event){
+        if (event.which == 8) event.preventDefault()
+      }
+
       new SpaceInvaders(document.getElementById('gameCanvas'), 1000, 700).start()
+
     </script>
   </body>
 </html>

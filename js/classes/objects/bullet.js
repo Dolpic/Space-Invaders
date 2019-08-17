@@ -1,13 +1,11 @@
-class Bullet{
+class Bullet extends Object{
     constructor(game, startPos, speed, sprite, initialVelocity){
+        super(game, startPos.x, startPos.y, sprite)
+
         this.startPos = startPos
         this.speed = speed
-        this.game = game
-        this.spriteName = sprite
-        this.destroyed = false
 
-        this.sprite = this.game.scene.physics.add.sprite(this.startPos.x, this.startPos.y, this.spriteName)
-        this.sprite.anims.play(this.spriteName, true)
+        this.sprite.anims.play(sprite, true)
         this.sprite.body.velocity = initialVelocity.normalize().scale(this.speed)
     }
 
@@ -22,14 +20,5 @@ class Bullet{
 
     damage(){
         this.destroy()
-    }
-
-    destroy(){
-        this.sprite.destroy()
-        this.destroyed = true
-    }
-
-    getSprite(){
-        return this.sprite
     }
 }

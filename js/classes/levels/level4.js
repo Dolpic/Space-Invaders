@@ -8,12 +8,12 @@ class Level4 extends Level{
     }
 
     create(){
-        this.game.setTitle('Level 4')
+        super.create("Level 4")
+        
         this.boss = new Boss(this.game, this.game.width/2, 3*this.game.height/8, this.player, 'boss1')
         this.boss.sprite.setAlpha(0)
         this.boss.sprite.setScale(1.3)
         this.boss.sprite.setTint(0x00e3b1)
-        this.scoreBar.create()
 
         for(var i=0; i<10; i++){
             var enemy = new Enemy(this.game, 50+100*i, 50, this.player, 'enemy2', 0x0089bd);

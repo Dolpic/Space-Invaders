@@ -1,22 +1,21 @@
-class Player{
+class Player extends Object{
     constructor(game, startX, startY, sprite){
+        super(game, startX, startY, sprite)
+
         this.speed               = 250
         this.bulletSpeed         = 250
         this.shootSpeed          = 200
         this.invulnerabilityTime = 3000
         this.hitPenalty          = -100
 
-        this.destroyed          = false
         this.controlledByPlayer = true
 
         this.lastShoot = this.shootSpeed
         this.lastHit = 0
-        this.game = game
-        this.spriteName = sprite
 
-        this.sprite = this.game.scene.physics.add.sprite(startX, startY, this.spriteName);
         this.sprite.setCollideWorldBounds(true);
     }
+    
     shoot(){
         var vector = new Phaser.Math.Vector2(0, -1)
         var bullet = new Bullet(this.game, this.sprite.getCenter(), this.bulletSpeed, 'bullet', vector);
@@ -75,11 +74,6 @@ class Player{
         }
     }
 
-    destroy(){
-        this.sprite.destroy();
-        this.destroyed = true;
-    }
-
     static blink(sprite, state, duration){
         if(state == 0){
             sprite.tint = 0x006600;
@@ -92,9 +86,5 @@ class Player{
         }else{
             sprite.tint = 0xffffff;
         }
-    }
-
-    getSprite(){
-        return this.sprite
     }
 }

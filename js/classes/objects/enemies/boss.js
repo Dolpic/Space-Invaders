@@ -155,16 +155,12 @@ class Boss extends Enemy{
     }
 
     destroy(){
+        super.destroy()
+
         this.graphics.clear()
-        this.sprite.destroy()
         for(var i=0; i<this.tableIntervals.length; i++){
             clearInterval(this.tableIntervals[i])
         }
         this.bullets.destroy()
-        this.destroyed = true
-    }
-
-    getSprite(){
-        return this.sprite
     }
 }

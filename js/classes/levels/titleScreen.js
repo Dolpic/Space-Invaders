@@ -21,10 +21,12 @@ class TitleScreen{
             if(this.game.keyboard.space.isDown){
                 this.nextLevel()
             }
-            if(this.player.x >= this.game.width/3){
+            //Pourquoi checker player.body ? Mystère...
+            if(this.player.body != undefined && this.player.x >= this.game.width/3){
                 this.player.body.velocity.x = 0
             }
-            if(this.enemy.x <= 2*this.game.width/3){
+            //Pourquoi checker enemy.body ? ...
+            if(this.enemy.body != undefined && this.enemy.x <= 2*this.game.width/3){
                 this.enemy.body.velocity.x = 0
             }
         }
@@ -32,7 +34,7 @@ class TitleScreen{
 
     nextLevel(){
         this.game.setSubtitle('')
-        this.game.currentLevel = new Level4(this.game)
+        this.game.currentLevel = new Scoreboard(this.game)
         this.game.currentLevel.create()
         this.destroy()
     }

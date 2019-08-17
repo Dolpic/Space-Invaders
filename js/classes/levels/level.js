@@ -8,10 +8,9 @@ class Level{
         this.scoreBar  = new ScoreBar(this.game)
         this.started   = false
         this.finished  = false
+        this.colliders = []
 
         this.scoreBar.currentScore = this.game.score
-
-        this.player = new Player(this.game,this.game.width/2, 620, 'player');
     }
 
     start(){
@@ -20,6 +19,12 @@ class Level{
             this.started = true
             this.game.setTitle("")
         }
+    }
+
+    create(title){
+        this.player = new Player(this.game,this.game.width/2, 620, 'player');
+        this.game.setTitle(title);
+        this.scoreBar.create();
     }
 
     update(){
@@ -44,18 +49,9 @@ class Level{
             this.finished = true
         }
 
-        if(this.finished){
+        if(this.finished && this.player.sprite != undefined){
             this.player.sprite.anims.play('move', true)
         }
-    }
-
-    destroy(){
-        this.player.destroy()
-        this.enemies.destroy()
-        this.bullets.destroy()
-        this.obstacles.destroy()
-        this.scoreBar.destroy()
-        this.bricks.destroy()
     }
 
     createBricksGroup(posX, posY, bluePrint){
@@ -80,19 +76,19 @@ class Level{
     }
 
     setOverlap(){
-        this.game.scene.physics.add.overlap(  this.bricks.getSprite(), 
-                                        this.enemies.getSprite(), 
+        var col1 = this.game.scene.physics.add.overlap(this.bricks.getSprite(), this.enemies.getSprite(), 
                                         function(a,b){
                                             this.game.currentLevel.bricks.damage(a)
                                         }.bind(this)
                                     )
 
-        this.game.scene.physics.add.overlap(  this.obstacles.getSprite(), 
-                                        this.enemies.getSprite(), 
+        var col2 = this.game.scene.physics.add.overlap(this.obstacles.getSprite(), this.enemies.getSprite(), 
                                         function(a,b){
                                             gameOver(this.game.currentLevel.game)
                                         }.bind(this)
                                     )
+        this.colliders.push(col1)
+        this.colliders.push(col2)
     }
 
     setCollider(){
@@ -101,32 +97,49 @@ class Level{
 
     addPlayerCollider(object){
         if(isDefined(this.player)){
-            this.game.scene.physics.add.overlap(this.player.getSprite(), object.getSprite(), this.generateColliderFunction(this.player, object));
+            this.addCollider(object.getSprite(), this.player.getSprite())
         }
     }
 
     addEnemiesCollider(object){
-        this.game.scene.physics.add.overlap(this.enemies.getSprite(), object.getSprite(), this.generateColliderFunction(this.enemies, object));
+        this.addCollider(object.getSprite(), this.enemies.getSprite())
     }
 
     addBricksCollider(object){
-        this.game.scene.physics.add.overlap(this.bricks.getSprite(), object.getSprite(), this.generateColliderFunction(this.bricks, object));
+        this.addCollider(object.getSprite(), this.bricks.getSprite())
     }
 
     addBulletsCollider(object){
-        this.game.scene.physics.add.overlap(this.bullets.getSprite(), object.getSprite(), this.generateColliderFunction(this.bullets, object));
+        this.addCollider(object.getSprite(), this.bullets.getSprite())
     }
 
     addBossCollider(object){
         if(isDefined(this.boss)){
-            this.game.scene.physics.add.overlap(this.boss.getSprite(), object.getSprite(), this.generateColliderFunction(this.boss, object));
+            this.addCollider(object.getSprite(), this.boss.getSprite())
         }
     }
 
-    generateColliderFunction(obj1, obj2){
-        return function(a, b){
-            obj1.damage()
-            obj2.damage()
-        }.bind(this)
+    addCollider(obj1, obj2){
+        var collider = this.game.scene.physics.add.overlap(obj1, obj2, this.colliderFunction)
+        this.colliders.push(collider)
+    }
+
+    colliderFunction(a, b){
+        a.getParent().damage()
+        b.getParent().damage()
+    }
+
+    destroy(){
+        this.player.destroy()
+        this.enemies.destroy()
+        this.bullets.destroy()
+        this.obstacles.destroy()
+        this.scoreBar.destroy()
+        this.bricks.destroy()
+
+        for(var i=0; i<this.colliders.length; i++){
+            this.game.scene.physics.world.removeCollider(this.colliders[i])
+            this.colliders[i].destroy()
+        }
     }
 }
