@@ -84,7 +84,7 @@ class Level{
 
         var col2 = this.game.scene.physics.add.overlap(this.obstacles.getSprite(), this.enemies.getSprite(), 
                                         function(a,b){
-                                            gameOver(this.game.currentLevel.game)
+                                            this.game.gameOver(this.game.currentLevel.game)
                                         }.bind(this)
                                     )
         this.colliders.push(col1)
