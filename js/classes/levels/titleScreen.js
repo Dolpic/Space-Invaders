@@ -8,7 +8,7 @@ class TitleScreen{
         this.player = this.game.scene.physics.add.sprite(-20, 2*this.game.height/3, 'player')
         this.player.anims.play("moveLoop")
         this.player.body.velocity.x = 100
-    
+
         this.enemy = this.game.scene.physics.add.sprite(this.game.width + 20, 2*this.game.height/3, 'enemy1')
         this.enemy.setTint(0xff0000)
         this.enemy.anims.play("enemy1")
@@ -17,7 +17,7 @@ class TitleScreen{
 
     update(){
         if(!this.destroyed){
-            
+
             if(this.game.keyboard.space.isDown){
                 this.nextLevel()
             }
@@ -34,16 +34,16 @@ class TitleScreen{
 
     nextLevel(){
         this.game.setSubtitle('')
-        this.game.currentLevel = new Scoreboard(this.game)
+        this.game.currentLevel = new Level1(this.game)
         this.game.currentLevel.create()
         this.destroy()
     }
 
     destroy(){
         this.destroyed = true
-        if(isDefined(this.player)) 
+        if(isDefined(this.player))
             this.player.destroy()
-        if(isDefined(this.enemy))  
+        if(isDefined(this.enemy))
             this.enemy.destroy()
     }
 }
