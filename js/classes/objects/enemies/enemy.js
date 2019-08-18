@@ -81,9 +81,9 @@ class Enemy extends Object{
     beer_drop(){
       var velocity = new Phaser.Math.Vector2(0,1)
 
-      var beer = new Beer(this.game, this.sprite.getCenter(), this.bulletSpeed, 'beerPic', velocity)
+      var beer = new Beer(this.game, this.sprite.getCenter(), this.bulletSpeed, 'beer', velocity)
 
-      this.game.currentLevel.bullets.add(beer, this.game.currentLevel.player, this.game.currentLevel.player.damage)
+      this.game.player.add(beer)
     }
 
     blink(){
