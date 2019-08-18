@@ -10,6 +10,16 @@ class Spaceship extends Enemy{
         this.borderMargins   = 40
         this.move            = this.spaceshipMove
         this.initialVelocity = initialVelocity
+
+        /*this.emitter = this.game.scene.add.particles('particle').createEmitter({
+            scale: { start: 0.4, end: 0 },
+            lifespan: 2000,
+            speed: { min: 40, max: 60 },
+            blendMode: 'ADD'
+        })
+        this.emitter.setFrequency(50,2)
+        this.emitter.setPosition(this.sprite.getCenter().x, this.sprite.getCenter().y);
+        */
     }
 
     update(){

@@ -35,6 +35,8 @@ function loadSprites(loader){
     loader.image('stars11', 'images/stars/Taurus.png');
     loader.image('stars12', 'images/stars/Virgo.png');
 
+    loader.image('particle', 'images/particle.png');
+
     /*loader.image('joypadBase', 'joypad_base.png');
     loader.svg('button','bouton.svg');
     loader.svg('buttonPushed','bouton_pushed.svg');
