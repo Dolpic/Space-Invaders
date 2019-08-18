@@ -35,7 +35,7 @@ class SpaceInvaders{
     this.scene = this.phaserGame.scene.scenes[0]
 
     this.scene.load.setBaseURL('ressources/')
-    
+
     loadSprites(this.scene.load)
 
     this.scene.input.keyboard.addCapture('UP, DOWN, LEFT, RIGHT')
@@ -43,7 +43,7 @@ class SpaceInvaders{
 
     //Force the font to load
     this.scene.add.text(-100,-100,'Mock text').setFontFamily("courierCode")
-  
+
     this.background = new Background(this)
   }
 
@@ -67,7 +67,7 @@ class SpaceInvaders{
   update(){
     this.background.update()
     this.currentLevel.update()
-  
+
     if(this.isGameOver && this.keyboard.space.isDown){
       var curLevel = new Scoreboard(this)
       curLevel.create()
@@ -84,6 +84,7 @@ class SpaceInvaders{
 
     this.currentLevel = new TitleScreen(this)
     this.currentLevel.create()
+    this.beersCaught = 0
     this.remainingLives = 5
     this.score = 0
     this.scene.physics.world.isPaused = false
@@ -92,20 +93,20 @@ class SpaceInvaders{
   setTitle(txt){
 
     this.mainTitle.setText(txt)
-  
+
     var posX = this.width/2  - this.mainTitle.width/2
     var posY = this.height/3 - this.mainTitle.height/2
-  
+
     this.mainTitle.setPosition(posX, posY)
   }
-  
+
   setSubtitle(txt){
-  
+
     this.subtitle.setText(txt)
-  
+
     var posX = this.width/2  - this.subtitle.width/2
     var posY = this.height/2 - this.subtitle.height/2
-    
+
     this.subtitle.setPosition(posX, posY)
   }
 
@@ -119,7 +120,7 @@ class SpaceInvaders{
         curColor = '#00ff00'
         var nextCall = 1400
     }
-    
+
     setTimeout(SpaceInvaders.textFlash, nextCall, txt, curColor)
   }
 

@@ -10,6 +10,7 @@ class Enemy extends Object{
         this.speed       = 120
         this.shootSpeed  = 1300
         this.bulletSpeed = 160
+        this.beerSpeed   = 200
         this.points      = 20
         this.maxLife     = 0
         this.life        = this.maxLife
@@ -80,8 +81,10 @@ class Enemy extends Object{
 
     beer_drop(){
       var velocity = new Phaser.Math.Vector2(0,1)
-      var beer = new Beer(this.game, this.sprite.getCenter(), this.bulletSpeed, 'beer', velocity)
+      var beer = new Beer(this.game, this.sprite.getCenter(), this.beerSpeed, 'beer', velocity)
       this.game.currentLevel.bullets.add(beer)
+
+      this.game.currentLevel.addPlayerCollider(beer)
     }
 
     blink(){
