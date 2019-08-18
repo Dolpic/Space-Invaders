@@ -3,8 +3,7 @@ class Beer extends Object{
         super(game, startPos.x, startPos.y, sprite)
 
         this.speed = speed
-
-        this.sprite.setSize(500,500)
+        this.sprite.setDisplaySize(20,20)
 
         this.sprite.body.velocity = initialVelocity.normalize().scale(this.speed)
     }

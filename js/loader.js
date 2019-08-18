@@ -17,7 +17,7 @@ function loadSprites(loader){
     loader.spritesheet('bossBullet2',    'images/bossBullet2.png',    {frameWidth : 26, frameHeight : 38});
 
     //loader.spritesheet('beer', 'images/beerPic.png', {frameWidth : 50, frameHeight : 50});
-    loader.spritesheet('beer', 'images/spaceship.png', {frameWidth : 45,  frameHeight : 37});
+    loader.image('beer', 'images/beerPic2.png');
 
     loader.image('brick', 'images/brick.png');
     loader.spritesheet('barrier', 'images/barrier.png', {frameWidth : 12, frameHeight : 10});
