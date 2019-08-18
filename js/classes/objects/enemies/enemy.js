@@ -58,7 +58,7 @@ class Enemy extends Object{
         }else{
             var bullet = new Bullet(this.game, this.sprite.getCenter(), this.bulletSpeed, 'bulletEnemy', velocity)
         }
-        this.game.currentLevel.bullets.add(bullet, this.game.currentLevel.player, this.game.currentLevel.player.damage);
+        this.game.currentLevel.bullets.add(bullet);
 
         this.game.currentLevel.addPlayerCollider(bullet)
         this.game.currentLevel.addBricksCollider(bullet)
@@ -80,10 +80,8 @@ class Enemy extends Object{
 
     beer_drop(){
       var velocity = new Phaser.Math.Vector2(0,1)
-
-      var beer = new Beer(this.game, this.sprite.getCenter(), this.bulletSpeed, 'beerPic', velocity)
-
-      this.game.currentLevel.bullets.add(beer, this.game.currentLevel.player, this.game.currentLevel.player.damage)
+      var beer = new Beer(this.game, this.sprite.getCenter(), this.bulletSpeed, 'beer', velocity)
+      this.game.currentLevel.bullets.add(beer)
     }
 
     blink(){

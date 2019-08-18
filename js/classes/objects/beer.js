@@ -2,10 +2,10 @@ class Beer extends Object{
     constructor(game, startPos, speed, sprite, initialVelocity){
         super(game, startPos.x, startPos.y, sprite)
 
-        this.startPos = startPos
         this.speed = speed
 
-        this.sprite.anims.play(sprite, true)
+        this.sprite.setSize(500,500)
+
         this.sprite.body.velocity = initialVelocity.normalize().scale(this.speed)
     }
 
