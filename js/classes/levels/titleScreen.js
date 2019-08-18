@@ -10,9 +10,13 @@ class TitleScreen{
         this.player.body.velocity.x = 100
     
         this.enemy = this.game.scene.physics.add.sprite(this.game.width + 20, 2*this.game.height/3, 'enemy1')
-        this.enemy.setTint(0xff0000)
+        this.enemy.setTint(Phaser.Display.Color.GetColor(randomNumber(0,255), randomNumber(0,255), randomNumber(0,255)))
         this.enemy.anims.play("enemy1")
         this.enemy.body.velocity.x = -100
+
+        this.game.setTitle('Sysmic Invaders')
+        this.game.setSubtitle('Insert coin and press <space>')
+        SpaceInvaders.textFlash(this.game.subtitle, '#00ff00')
     }
 
     update(){
@@ -34,13 +38,14 @@ class TitleScreen{
 
     nextLevel(){
         this.game.setSubtitle('')
-        this.game.currentLevel = new Scoreboard(this.game)
+        this.game.currentLevel = new Level6(this.game)
         this.game.currentLevel.create()
         this.destroy()
     }
 
     destroy(){
         this.destroyed = true
+
         if(isDefined(this.player)) 
             this.player.destroy()
         if(isDefined(this.enemy))  

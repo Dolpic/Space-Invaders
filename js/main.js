@@ -1,5 +1,4 @@
 class SpaceInvaders{
-
   constructor(canvas, canvasWidth, canvasHeight){
 
     this.phaserConfig = {
@@ -36,14 +35,15 @@ class SpaceInvaders{
     this.scene = this.phaserGame.scene.scenes[0]
 
     this.scene.load.setBaseURL('ressources/')
-    this.scene.input.keyboard.addCapture('UP, DOWN, LEFT, RIGHT')
     
     loadSprites(this.scene.load)
+
+    this.scene.input.keyboard.addCapture('UP, DOWN, LEFT, RIGHT')
+    this.keyboard = this.scene.input.keyboard.createCursorKeys();
 
     //Force the font to load
     this.scene.add.text(-100,-100,'Mock text').setFontFamily("courierCode")
   
-    this.keyboard = this.scene.input.keyboard.createCursorKeys();
     this.background = new Background(this)
   }
 
@@ -59,15 +59,9 @@ class SpaceInvaders{
     SpaceInvaders.formatText(this.mainTitle, 70)
     SpaceInvaders.formatText(this.subtitle,  30)
 
-    SpaceInvaders.textFlash(this.subtitle, '#00ff00')
-
     this.reset()
 
-    this.setTitle('Sysmic Invaders')
-    this.setSubtitle('Insert coin and press <space>')
-
     this.background.create()
-    this.currentLevel.create()
   }
 
   update(){
@@ -75,9 +69,11 @@ class SpaceInvaders{
     this.currentLevel.update()
   
     if(this.isGameOver && this.keyboard.space.isDown){
-      this.reset(this)
-      this.currentLevel = new Level1(this)
-      this.currentLevel.create()
+      var curLevel = new Scoreboard(this)
+      curLevel.create()
+      this.currentLevel.destroy()
+      this.currentLevel = curLevel
+      this.isGameOver = false
     }
   }
 
@@ -85,24 +81,12 @@ class SpaceInvaders{
     if(isDefined(this.currentLevel)){
       this.currentLevel.destroy()
     }
-  
+
     this.currentLevel = new TitleScreen(this)
+    this.currentLevel.create()
     this.remainingLives = 5
     this.score = 0
     this.scene.physics.world.isPaused = false
-    this.setSubtitle('')
-    this.isGameOver = false
-  }
-
-  gameOver(){
-    this.scene.physics.world.isPaused = true
-    this.setTitle("Game Over")
-  
-    setTimeout(
-      function(){
-        this.setSubtitle('Press <space> to retry')
-        this.isGameOver = true
-      }.bind(this), 2000)
   }
 
   setTitle(txt){

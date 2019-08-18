@@ -22,9 +22,14 @@ class Level{
     }
 
     create(title){
-        this.player = new Player(this.game,this.game.width/2, 620, 'player');
+        this.player = new Player(this.game,this.game.width/2, 820, 'player');
         this.game.setTitle(title);
         this.scoreBar.create();
+
+        for(var i=0; i<Math.ceil(this.game.width/12); i++){
+            this.obstacles.add(new Obstacle(this.game, i*12, 770, true)).sprite.setImmovable(true)
+            this.obstacles.add(new Obstacle(this.game, i*12, 853, false)).sprite.setImmovable(true)
+        }
     }
 
     update(){
@@ -76,19 +81,17 @@ class Level{
     }
 
     setOverlap(){
-        var col1 = this.game.scene.physics.add.overlap(this.bricks.getSprite(), this.enemies.getSprite(), 
+        this.colliders.push(this.game.scene.physics.add.overlap(this.bricks.getSprite(), this.enemies.getSprite(), 
                                         function(a,b){
                                             this.game.currentLevel.bricks.damage(a)
                                         }.bind(this)
-                                    )
+        ))
 
-        var col2 = this.game.scene.physics.add.overlap(this.obstacles.getSprite(), this.enemies.getSprite(), 
+        this.colliders.push(this.game.scene.physics.add.overlap(this.obstacles.getSprite(), this.enemies.getSprite(), 
                                         function(a,b){
-                                            this.game.gameOver(this.game.currentLevel.game)
+                                            this.gameOver(this.game.currentLevel.game)
                                         }.bind(this)
-                                    )
-        this.colliders.push(col1)
-        this.colliders.push(col2)
+        ))
     }
 
     setCollider(){
@@ -124,9 +127,36 @@ class Level{
         this.colliders.push(collider)
     }
 
+    addEnemy(enemy){
+        this.enemies.add(enemy)
+
+        this.colliders.push(this.game.scene.physics.add.overlap(this.bricks.getSprite(), enemy.sprite, 
+                                        function(a,b){
+                                            this.game.currentLevel.bricks.damage(a)
+                                        }.bind(this)
+        ))
+
+        this.colliders.push(this.game.scene.physics.add.overlap(this.obstacles.getSprite(), enemy.sprite, 
+                                        function(a,b){
+                                            this.gameOver(this.game.currentLevel.game)
+                                        }.bind(this)
+        ))
+    }
+
     colliderFunction(a, b){
         a.getParent().damage()
         b.getParent().damage()
+    }
+
+    gameOver(){
+        this.game.scene.physics.world.isPaused = true
+        this.game.setTitle("Game Over")
+      
+        setTimeout(
+          function(){
+            this.game.setSubtitle('Press <space>')
+            this.game.isGameOver = true
+        }.bind(this), 2000)
     }
 
     destroy(){

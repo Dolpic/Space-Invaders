@@ -22,11 +22,14 @@ class Enemy extends Object{
 
         this.sprite.anims.play(sprite, true)
         this.sprite.tint = tint
+        this.tint = tint
         this.sprite.setDepth(10)
 
         this.move = this.defaultMove
         this.margins    = 10
         this.lineHeight = 90
+
+        this.shootDirected = false
     }
 
     start(){
@@ -49,8 +52,12 @@ class Enemy extends Object{
 
     shoot(){
         var velocity = new Phaser.Math.Vector2(0,1)
-        var bullet = new Bullet(this.game, this.sprite.getCenter(), this.bulletSpeed, 'bulletEnemy', velocity)
 
+        if(this.shootDirected){
+            var bullet = new BulletDirected(this.game, this.sprite.getCenter(), this.bulletSpeed, velocity)
+        }else{
+            var bullet = new Bullet(this.game, this.sprite.getCenter(), this.bulletSpeed, 'bulletEnemy', velocity)
+        }
         this.game.currentLevel.bullets.add(bullet, this.game.currentLevel.player, this.game.currentLevel.player.damage);
 
         this.game.currentLevel.addPlayerCollider(bullet)
@@ -67,6 +74,13 @@ class Enemy extends Object{
         }else{
             this.life--
         }
+        this.blink()
+    }
+
+    blink(){
+        var newTint = Phaser.Display.Color.ValueToColor(this.tint).brighten(30)
+        this.sprite.tint = newTint.color
+        setTimeout(function(){this.sprite.tint = this.tint}.bind(this), 100)
     }
 
     defaultMove(){
@@ -92,7 +106,7 @@ class Enemy extends Object{
             }
             this.nextLineHeight += this.lineHeight
         }
-       // this.sprite.body.velocity.x = 1;
+
         this.sprite.body.velocity.normalize().scale(this.speed)
 
     }

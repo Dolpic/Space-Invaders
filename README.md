@@ -39,7 +39,9 @@ Je cherche vraiment plein d'idées! Faut vraiment pas hésiter à porposer des t
  ## Le JS en 2-2
  Les `;` en fin de ligne sont totalement facultatifs en javascript. \
  Les variables se déclarent avec le mot-clé `var`, par exemple : `var vie = 100`. \
+ Par défaut, toute variable qui n'a pas été initialisée à autre chose vaut la valeur spéciale `undefined`. \
  Le javascript est à typage dynamique, cela veut dire qu'on indique pas le type des variables, il est automatiquement reconnu. \
+ Le javascript fonctionne avec un ramasse-miette (garbage collector), cela signifie qu'on ne s'occupe pas du tout de la mémoire, le language désalloue automatiquement la mémoire de **tout ce qui n'est plus référencé**, c'est très pratique, mais il faut s'assurer que les objets dont on a plus besoin ne soit plus référencés du tout. \
  Le javascript est "orienté objet", on peut y créer des classes mais il n'y a aucune méthode d'encapsulation (pas de notion de "privée" ou "publique"). \
  Tout ce que contient un objet est toujours public. \
  \
@@ -105,4 +107,9 @@ Je cherche vraiment plein d'idées! Faut vraiment pas hésiter à porposer des t
  }
   ```
   Et on pourrait un Magicien avec par exemple : `var mage = new Magicien(nom, vie, mana, baguette)`
+
+### Debugger son code
+Infos pratiques :
+ * Pour avoir la console javascript (là où sont affichées toutes les infos et les messages d'erreur) il suffit de faire clic droit sur la page web du jeu, puis de séléctionner `outil pour développeur` ou `inspecter` suivant le navigateur, puis d'aller dans l'onglet console.
+ * Pour afficher quelque chose dans la console depuis le code, il faut utiliser la fonction `console.log(Truc)`, cette fonction peut tout afficher, aussi bien du texte que des objets entiers.
  

@@ -38,9 +38,7 @@ class Boss extends Enemy{
 
         this.life--
         this.drawLifeBar()
-        this.sprite.tint = 0x61ffdc
-
-        setTimeout(function(){this.sprite.tint = 0x00e3b1}.bind(this), 100)
+        this.blink()
 
         switch(this.life){
             case 120:
@@ -121,7 +119,7 @@ class Boss extends Enemy{
 
     shootBouncingBall(bulletType, velocityX, velocityY){
         var bullet = this.shoot(bulletType, velocityX, velocityY)
-        bullet.sprite.setScale(1.3).setBounce(1).setCollideWorldBounds(true)
+        bullet.sprite.setScale(1.7).setBounce(1).setCollideWorldBounds(true)
         bullet.sprite.tint = 0xff0033
     }
 

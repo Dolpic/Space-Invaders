@@ -2,7 +2,7 @@ class ScoreBar extends Object{
     constructor(game){
         super(game, 0, 0, undefined)
 
-        this.height = 650
+        this.height = this.game.height - 50
         this.marginLeft = 50
         this.scoreSpeed = 4
         this.currentScore = 0

@@ -1,17 +1,20 @@
 function loadSprites(loader){
-    loader.spritesheet('player', 'images/player.png', {frameWidth : 22,  frameHeight : 16});
+    loader.spritesheet('player', 'images/player.png',       {frameWidth : 22,  frameHeight : 16});
 
-    loader.spritesheet('enemy1', 'images/enemy1.png', {frameWidth : 22,  frameHeight : 16});
-    loader.spritesheet('enemy2', 'images/enemy2.png', {frameWidth : 26,  frameHeight : 20});
-    loader.spritesheet('boss1',  'images/boss1.png',  {frameWidth : 156, frameHeight : 120});
+    loader.spritesheet('enemy1',    'images/enemy1.png',    {frameWidth : 22,  frameHeight : 16});
+    loader.spritesheet('enemy2',    'images/enemy2.png',    {frameWidth : 26,  frameHeight : 20});
+    loader.spritesheet('enemy3',    'images/enemy3.png',    {frameWidth : 30,  frameHeight : 30});
+    loader.spritesheet('spaceship', 'images/spaceship.png', {frameWidth : 45,  frameHeight : 37});
+    loader.spritesheet('boss1',     'images/boss1.png',     {frameWidth : 156, frameHeight : 120});
 
     loader.spritesheet('boss1Death', 'images/boss1Death.png', {frameWidth : 156, frameHeight : 120});
 
-    loader.spritesheet('bullet',      'images/bullet.png',      {frameWidth : 6,  frameHeight : 14});
-    loader.spritesheet('bulletEnemy', 'images/bulletEnemy.png', {frameWidth : 4,  frameHeight : 12});
-    loader.spritesheet('hellBall',    'images/hellBall.png',    {frameWidth : 52, frameHeight : 52});
-    loader.spritesheet('bossBullet1', 'images/bossBullet1.png', {frameWidth : 34, frameHeight : 34});
-    loader.spritesheet('bossBullet2', 'images/bossBullet2.png', {frameWidth : 26, frameHeight : 38});
+    loader.spritesheet('bullet',         'images/bullet.png',         {frameWidth : 6,  frameHeight : 14});
+    loader.spritesheet('bulletEnemy',    'images/bulletEnemy.png',    {frameWidth : 4,  frameHeight : 12});
+    loader.spritesheet('bulletDirected', 'images/bulletDirected.png', {frameWidth : 8,  frameHeight : 15});
+    loader.spritesheet('hellBall',       'images/hellBall.png',       {frameWidth : 52, frameHeight : 52});
+    loader.spritesheet('bossBullet1',    'images/bossBullet1.png',    {frameWidth : 34, frameHeight : 34});
+    loader.spritesheet('bossBullet2',    'images/bossBullet2.png',    {frameWidth : 26, frameHeight : 38});
 
     loader.image('brick', 'images/brick.png');
     loader.spritesheet('barrier', 'images/barrier.png', {frameWidth : 12, frameHeight : 10});
@@ -42,6 +45,8 @@ function createAnimations(animator){
     // ENEMIES
     createAnimation(animator, 'enemy1'    , 1,  6, -1)
     createAnimation(animator, 'enemy2'    , 1,  7, -1)
+    createAnimation(animator, 'enemy3'    , 1,  7, -1)
+    createAnimation(animator, 'spaceship' , 3,  6, -1)
     createAnimation(animator, 'boss1'     , 3,  7, -1)
     createAnimation(animator, 'boss1Death', 16, 8, 0 )
 
@@ -56,11 +61,12 @@ function createAnimations(animator){
     });
 
     // BULLET
-    createAnimation(animator, 'bullet',      6, 7,  -1)
-    createAnimation(animator, 'bulletEnemy', 6, 7,  -1)
-    createAnimation(animator, 'hellBall',    2, 10, -1)
-    createAnimation(animator, 'bossBullet1', 1, 10, -1)
-    createAnimation(animator, 'bossBullet2', 1, 10, -1)
+    createAnimation(animator, 'bullet',         6, 7,  -1)
+    createAnimation(animator, 'bulletEnemy',    6, 7,  -1)
+    createAnimation(animator, 'bulletDirected', 6, 7,  -1)
+    createAnimation(animator, 'hellBall',       2, 10, -1)
+    createAnimation(animator, 'bossBullet1',    1, 10, -1)
+    createAnimation(animator, 'bossBullet2',    1, 10, -1)
 
     // OTHERS
     createAnimation(animator, 'barrier', 6, 6, -1)

@@ -12,34 +12,31 @@ class Level4 extends Level{
         
         this.boss = new Boss(this.game, this.game.width/2, 3*this.game.height/8, this.player, 'boss1')
         this.boss.sprite.setAlpha(0)
-        this.boss.sprite.setScale(1.3)
+        this.boss.sprite.setScale(1.5)
         this.boss.sprite.setTint(0x00e3b1)
 
-        for(var i=0; i<10; i++){
+        for(var i=0; i<12; i++){
             var enemy = new Enemy(this.game, 50+100*i, 50, this.player, 'enemy2', 0x0089bd);
             this.setEnemy(enemy, 1)
         }
-        for(var i=0; i<10; i++){
+        for(var i=0; i<12; i++){
             var enemy = new Enemy(this.game, 50+100*i, 100, this.player, 'enemy2', 0x0089bd);
             this.setEnemy(enemy, -1)
         }
-        for(var i=0; i<10; i++){
+        for(var i=0; i<12; i++){
             var enemy = new Enemy(this.game, 50+100*i, 150, this.player, 'enemy2', 0x0089bd);
             this.setEnemy(enemy, 1)
         }
 
-        for(var i=0; i<Math.ceil(this.game.width/12); i++){
-            this.obstacles.add(new Obstacle(this.game, i*12, 570, true)).sprite.setImmovable(true)
-        }
         this.obstaclesCollider = this.game.scene.physics.add.collider(this.player.sprite, this.obstacles.getSprite())
 
         var bluePrint = [[4,2,1,1,1,0,0],[2,6,8,8,8,10,10]]
-        this.createBricksGroup(this.game.width/8, 480, bluePrint)
-        this.createBricksGroup(2*this.game.width/8, 480, bluePrint)
-        this.createBricksGroup(3*this.game.width/8, 480, bluePrint)
-        this.createBricksGroup(5*this.game.width/8, 480, bluePrint)
-        this.createBricksGroup(6*this.game.width/8, 480, bluePrint)
-        this.createBricksGroup(7*this.game.width/8, 480, bluePrint)
+        this.createBricksGroup(this.game.width/8, 680, bluePrint)
+        this.createBricksGroup(2*this.game.width/8, 680, bluePrint)
+        this.createBricksGroup(3*this.game.width/8, 680, bluePrint)
+        this.createBricksGroup(5*this.game.width/8, 680, bluePrint)
+        this.createBricksGroup(6*this.game.width/8, 680, bluePrint)
+        this.createBricksGroup(7*this.game.width/8, 680, bluePrint)
 
         this.setOverlap()
         this.setCollider()
@@ -124,7 +121,7 @@ class Level4 extends Level{
     }
 
     toNextLevel(){
-        setTimeout(this.nextLevel.bind(this), 3000, new Level4(this.game))
+        setTimeout(this.nextLevel.bind(this), 3000, new Level5(this.game))
     }
 
     destroy(){

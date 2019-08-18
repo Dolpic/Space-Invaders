@@ -4,7 +4,7 @@ class Player extends Object{
 
         this.speed               = 250
         this.bulletSpeed         = 250
-        this.shootSpeed          = 200
+        this.shootSpeed          = 300
         this.invulnerabilityTime = 3000
         this.hitPenalty          = -100
 
@@ -69,7 +69,7 @@ class Player extends Object{
             this.lastHit = Date.now();
             Player.blink(this.sprite, 0, this.invulnerabilityTime);
             if(this.game.remainingLives <= 0){
-                this.game.gameOver(this.game);
+                this.game.currentLevel.gameOver(this.game);
             }
         }
     }
