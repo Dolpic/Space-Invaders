@@ -1,3 +1,32 @@
+/**
+ *  -------------------------------------------------------------------
+ *  !! IMPORTANT !!
+ *  
+ *  Ce fichier contient le script qui encode les pseudos + scores
+ *  pour les envoyer au serveur de Sysmic. Cette procédure DOIT rester
+ *  secrète sinon il est trivial de pirater le jeu et d'y introduire
+ *  n'importe quel score.
+ * 
+ *  Ce fichier DOIT donc rester secret !
+ * 
+ *  Méthode de codage :
+ *  (théoriquement pas sécurisée, mais une personne normalement constituée ne devrait pas pouvoir deviner ca)
+ *  
+ *  1. Prendre le pseudo, prendre son encodage en base 64, puis retourner la chaine, on obtient la première chaine
+ *  2. Prendre le score,  prendre son encodage en base 64, puis retourner la chaine, on obtient la deuxième chaine
+ *  3. Alterner les numéros des caractères des deux chaines, puis encoder la chaine obtenue
+ *  4. Prendre la chaine du point 3, et transformer chaque caractère en son numéro de caractère, et
+ *     ajouter entre chaque caratère de la nouvelle chaine obtenue un chiffre aléatoire totalement inutile
+ * 
+ *  (En réalité l'algorithme est encore un peu plus touffu que ca, 
+ *   si tu es vraiment courageux tu peux te faire plaisir en lisant le code)
+ * 
+ *  TODO niveau protection :
+ *  - Ne pas avoir de variable qui vaut le score actuel
+ * 
+ *  -------------------------------------------------------------------
+ */
+
 class Scoreboard{
     constructor(game){
         this.game = game
@@ -8,6 +37,8 @@ class Scoreboard{
         this.loaded = false
 
         this.nameMaxLength = 20
+        this.magicNumber   = 30 //It's magic !
+        this.ultraMagicNumber = Math.floor(Math.random()*99)+1 //Magic strikes again !
 
         var ajaxRequest = new XMLHttpRequest()
         ajaxRequest.onreadystatechange = function() {
@@ -53,19 +84,37 @@ class Scoreboard{
 
             if(this.editableText != undefined && this.editableText.text != ""){
 
-                
+                //Let the fun begin
+                this.game.score = 1234567
 
-                var ajaxRequest = new XMLHttpRequest()
-                ajaxRequest.onreadystatechange = function() {
-                    if (ajaxRequest.readyState == 4 && ajaxRequest.status == 200) {
-                        this.editableText.setFill('#00ff00')
-                        this.editableScore.setFill('#00ff00')
-                        console.log(ajaxRequest.responseText)
-                    }
-                }.bind(this)
-                ajaxRequest.open("POST", "https://www.sysmic.ch/game/ajax.php?action=saveScore", true)
-                ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-                ajaxRequest.send("data="+this.game.score);
+                var spaces = "                    "
+                var realName = this.reverse(this.encode((this.editableText.text+spaces).substring(0, this.nameMaxLength)))
+
+                var zeros = "00000000000000000000"
+                var realScore = zeros+this.game.score
+                var realScore = this.reverse(this.encode(realScore.substring(realScore.length-this.nameMaxLength, realScore.length)))
+
+                var data = ""
+                for(var i = 0; i<realName.length; i++){
+                    var first  = "0000"+(this.persoCharCodeAt(realName, i)*this.ultraMagicNumber)
+                    first = first.substring(first.length-4, first.length)
+
+                    var second = "0000"+(this.persoCharCodeAt(realScore, i)*this.ultraMagicNumber)
+                    second = second.substring(second.length-4, second.length)
+
+                    data += first+""+second
+                }
+                data = this.encode(data)
+
+                var codedData = ""
+                for(var i = 0; i<data.length; i++){
+                    var firstNumber  = this.persoCharCodeAt(data, i).toString().charAt(0)
+                    var secondNumber = this.persoCharCodeAt(data, i).toString().charAt(1)
+                    codedData += firstNumber+""+Math.floor(Math.random()*10)+""+secondNumber+""+Math.floor(Math.random()*10)
+                }
+                codedData += this.ultraMagicNumber.toString()
+
+                this.sendData(codedData)
             }
 
         }else if(code == Phaser.Input.Keyboard.KeyCodes.BACKSPACE){
@@ -116,4 +165,34 @@ class Scoreboard{
     }
 
     destroy(){}
+
+    encode(str) {
+        return window.btoa(unescape(encodeURIComponent(str)))
+    }
+      
+    decode(str) {
+        return decodeURIComponent(escape(window.atob(str)))
+    }
+
+    persoCharCodeAt(string, index){
+        return string.charCodeAt(index) - this.magicNumber
+    }
+
+    reverse(str){
+        return str.split("").reverse().join("")
+    }
+
+    sendData(data){
+        var ajaxRequest = new XMLHttpRequest()
+        ajaxRequest.onreadystatechange = function() {
+            if (ajaxRequest.readyState == 4 && ajaxRequest.status == 200) {
+                this.editableText.setFill('#00ff00')
+                this.editableScore.setFill('#00ff00')
+                console.log(ajaxRequest.responseText)
+            }
+        }.bind(this)
+        ajaxRequest.open("POST", "https://www.sysmic.ch/game/ajax.php?action=saveScore", true)
+        ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        ajaxRequest.send("data="+data);
+    }
 }
