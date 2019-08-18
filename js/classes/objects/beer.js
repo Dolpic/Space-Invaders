@@ -1,4 +1,4 @@
-class Bullet extends Object{
+class Beer extends Object{
     constructor(game, startPos, speed, sprite, initialVelocity){
         super(game, startPos.x, startPos.y, sprite)
 
@@ -18,7 +18,7 @@ class Bullet extends Object{
             }
     }
 
-    damage(){
+    drink(){
         this.destroy()
     }
 }

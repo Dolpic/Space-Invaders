@@ -38,7 +38,7 @@ class TitleScreen{
 
     nextLevel(){
         this.game.setSubtitle('')
-        this.game.currentLevel = new Level1(this.game)
+        this.game.currentLevel = new Level6(this.game)
         this.game.currentLevel.create()
         this.destroy()
     }
@@ -46,7 +46,7 @@ class TitleScreen{
     destroy(){
         this.destroyed = true
 
-        if(isDefined(this.player)) 
+        if(isDefined(this.player))
             this.player.destroy()
         if(isDefined(this.enemy))
             this.enemy.destroy()

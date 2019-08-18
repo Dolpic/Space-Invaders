@@ -70,11 +70,20 @@ class Enemy extends Object{
 
         if(!this.invincible && this.life == 0){
             this.game.score += this.points
+            this.beer_drop()
             this.destroy()
         }else{
             this.life--
         }
         this.blink()
+    }
+
+    beer_drop(){
+      var velocity = new Phaser.Math.Vector2(0,1)
+
+      var beer = new Beer(this.game, this.sprite.getCenter(), this.bulletSpeed, 'beerPic', velocity)
+
+      this.game.currentLevel.bullets.add(beer, this.game.currentLevel.player, this.game.currentLevel.player.damage)
     }
 
     blink(){
