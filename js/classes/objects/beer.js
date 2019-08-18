@@ -6,6 +6,8 @@ class Beer extends Object{
         this.sprite.setDisplaySize(20,20)
 
         this.sprite.body.velocity = initialVelocity.normalize().scale(this.speed)
+
+        this.game.scene.physics.add.overlap(this.sprite, this.game.currentLevel.player.sprite, this.drink.bind(this))
     }
 
     update(){
@@ -18,6 +20,7 @@ class Beer extends Object{
     }
 
     drink(){
-        this.destroy()
+       this.game.beersCaught++
+       this.destroy()
     }
 }
