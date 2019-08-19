@@ -10,7 +10,6 @@ class Enemy extends Object{
         this.speed       = 120
         this.shootSpeed  = 1300
         this.bulletSpeed = 160
-        this.beerSpeed   = 200
         this.points      = 20
         this.maxLife     = 0
         this.life        = this.maxLife
@@ -19,7 +18,6 @@ class Enemy extends Object{
         this.initialVelocity = new Phaser.Math.Vector2(0,0)
 
         this.startY = startY
-        this.startX = startX
 
         this.sprite.anims.play(sprite, true)
         this.sprite.tint = tint
@@ -59,10 +57,7 @@ class Enemy extends Object{
         }else{
             var bullet = new Bullet(this.game, this.sprite.getCenter(), this.bulletSpeed, 'bulletEnemy', velocity)
         }
-        this.game.currentLevel.bullets.add(bullet);
-
-        this.game.currentLevel.addPlayerCollider(bullet)
-        this.game.currentLevel.addBricksCollider(bullet)
+        this.game.currentLevel.addBullet(bullet)
 
         this.lastShoot = Date.now()
     }
@@ -71,20 +66,15 @@ class Enemy extends Object{
 
         if(!this.invincible && this.life == 0){
             this.game.score += this.points
-            this.beer_drop()
+
+            var beer = new Beer(this.game, this.sprite.getCenter())
+            this.game.currentLevel.addItem(beer)
+
             this.destroy()
         }else{
             this.life--
         }
         this.blink()
-    }
-
-    beer_drop(){
-      var velocity = new Phaser.Math.Vector2(0,1)
-      var beer = new Beer(this.game, this.sprite.getCenter(), this.beerSpeed, 'beer', velocity)
-      this.game.currentLevel.bullets.add(beer)
-
-      this.game.currentLevel.addPlayerCollider(beer)
     }
 
     blink(){

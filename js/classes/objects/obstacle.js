@@ -10,6 +10,5 @@ class Obstacle extends Object{
     }
 
     update(){}
-
     damage(){}
 }

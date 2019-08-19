@@ -11,7 +11,7 @@ class Level3 extends Level{
             enemy.initialVelocity.setTo(-1, 0)
             enemy.speed = 160;
             enemy.margins = 30;
-            this.enemies.add(enemy);
+            this.addEnemy(enemy)
         }
         
         for(var i=0; i<12; i++){
@@ -19,7 +19,7 @@ class Level3 extends Level{
             enemy.initialVelocity.setTo(1,0)
             enemy.speed = 160;
             enemy.margins = 30;
-            this.enemies.add(enemy);
+            this.addEnemy(enemy)
         }
     
         for(var i=0; i<12; i++){
@@ -28,7 +28,7 @@ class Level3 extends Level{
             enemy.sprite.tint = 0xdc5500;
             enemy.lineHeight = 60;
             enemy.margins = 30;
-            this.enemies.add(enemy);
+            this.addEnemy(enemy)
         }
 
         for(var i=0; i<12; i++){
@@ -36,17 +36,13 @@ class Level3 extends Level{
             enemy.initialVelocity.setTo(1,0)
             enemy.lineHeight = 60;
             enemy.margins = 30;
-            this.enemies.add(enemy);
+            this.addEnemy(enemy)
         }
-
 
         var bluePrint = [[4,2,0,2,3,3,4],[2,6,10,6,4,4,2]];
         for(var i=1; i<8; i++){
             this.createBricksGroup(i*this.game.width/8, 650, bluePrint);
         }
-
-        this.setOverlap()
-        this.setCollider()
     }
 
     toNextLevel(){

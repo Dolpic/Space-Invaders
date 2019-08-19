@@ -56,5 +56,7 @@ class ScoreBar extends Object{
         this.textLives.destroy()
         this.textScore.destroy()
         this.graphics.destroy()
+        this.picBeers.destroy()
+        this.textBeers.destroy()
     }
 }

@@ -1,11 +1,11 @@
-class Bullet extends Object{
-    constructor(game, startPos, speed, sprite, initialVelocity){
+class Item extends Object{
+    constructor(game, startPos, sprite){
         super(game, startPos.x, startPos.y, sprite)
 
-        this.speed = speed
-
-        this.sprite.anims.play(sprite, true)
-        this.sprite.body.velocity = initialVelocity.normalize().scale(this.speed)
+        this.speed     = 200
+        this.direction = new Phaser.Math.Vector2(0,1)
+        
+        this.sprite.body.velocity = this.direction.normalize().scale(this.speed)
     }
 
     update(){
@@ -14,10 +14,14 @@ class Bullet extends Object{
            this.sprite.x > this.game.width+this.sprite.width ||
            this.sprite.y > this.game.height+this.sprite.height){
                 this.destroy()
-            }
+        }
     }
 
-    damage(){
+    caught(){
         this.destroy()
+    }
+
+    destroy(){
+        super.destroy()
     }
 }

@@ -10,7 +10,7 @@ class TitleScreen{
         this.player.body.velocity.x = 100
 
         this.enemy = this.game.scene.physics.add.sprite(this.game.width + 20, 2*this.game.height/3, 'enemy1')
-        this.enemy.setTint(Phaser.Display.Color.GetColor(randomNumber(0,255), randomNumber(0,255), randomNumber(0,255)))
+        this.enemy.setTint(randomHueColor(1, 0.5))
         this.enemy.anims.play("enemy1")
         this.enemy.body.velocity.x = -100
 

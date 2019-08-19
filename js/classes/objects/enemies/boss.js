@@ -9,7 +9,6 @@ class Boss extends Enemy{
         this.points     = 1234
 
         this.hellBallSprite = null
-        this.bullets   = new ObjectsTable()
 
         this.graphics = this.game.scene.add.graphics()
     }
@@ -105,14 +104,12 @@ class Boss extends Enemy{
 
         var velocity = new Phaser.Math.Vector2(velocityX, velocityY)
         var position = new Phaser.Math.Vector2(this.sprite.x, this.sprite.y)
+
         var bullet = new Bullet(this.game, position, velocity.length(), bulletType, velocity)
         bullet.sprite.setRotation(rotation)
         bullet.sprite.setCircle(bullet.width/2)
         
-        this.game.currentLevel.addPlayerCollider(bullet)
-
-        this.bullets.add(bullet)
-
+        this.game.currentLevel.addBullet(bullet)
         return bullet
     }
 
@@ -129,14 +126,7 @@ class Boss extends Enemy{
         this.shoot('bossBullet1', vector.x, vector.y)
     }
 
-    pelletCircle(directionX, directionY){
-        if(directionX === undefined){
-            directionX = Math.random()
-        }
-        if(directionY === undefined){
-            directionY = Math.random()
-        }
-
+    pelletCircle(directionX = Math.random(), directionY = Math.random()){
         var nbPellets = 25;
         var vector = new Phaser.Math.Vector2(directionX, directionY).normalize().scale(130)
         for(var i=0; i<nbPellets; i++){
@@ -154,11 +144,10 @@ class Boss extends Enemy{
 
     destroy(){
         super.destroy()
-
         this.graphics.clear()
+        
         for(var i=0; i<this.tableIntervals.length; i++){
             clearInterval(this.tableIntervals[i])
         }
-        this.bullets.destroy()
     }
 }

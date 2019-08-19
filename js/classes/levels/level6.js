@@ -6,8 +6,7 @@ class Level6 extends Level{
     create(){
         super.create("Level 6")
 
-        var spaceship = new Spaceship(this.game, this.game.width/2, 40, 0xaa00ee, new Phaser.Math.Vector2(-1,0))
-        this.enemies.add(spaceship)
+        this.addEnemy(new Spaceship(this.game, this.game.width/2, 40, 0xaa00ee, new Phaser.Math.Vector2(-1,0)))
         
         for(var i=0; i<10; i++){
             var enemy = new Enemy(this.game, 150+100*i, 130, this.player, 'enemy3', 0xf29922)
@@ -16,7 +15,7 @@ class Level6 extends Level{
             enemy.margins = 30
             enemy.life = 3
             enemy.shootDirected = true
-            this.enemies.add(enemy)
+            this.addEnemy(enemy)
         }
 
         for(var i=0; i<11; i++){
@@ -25,16 +24,13 @@ class Level6 extends Level{
             enemy.speed = 180
             enemy.margins = 30
             enemy.life = 0
-            this.enemies.add(enemy)
+            this.addEnemy(enemy)
         }
 
         var bluePrint = [[4,3,2,1,0],[2,4,6,8,10]]
         for(var i=1; i<3; i++){
             this.createBricksGroup(i*this.game.width/3, 650, bluePrint)
         }
-
-        this.setOverlap()
-        this.setCollider()
     }
 
     toNextLevel(){

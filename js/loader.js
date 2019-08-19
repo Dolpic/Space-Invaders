@@ -16,9 +16,6 @@ function loadSprites(loader){
     loader.spritesheet('bossBullet1',    'images/bossBullet1.png',    {frameWidth : 34, frameHeight : 34});
     loader.spritesheet('bossBullet2',    'images/bossBullet2.png',    {frameWidth : 26, frameHeight : 38});
 
-    //loader.spritesheet('beer', 'images/beerPic.png', {frameWidth : 50, frameHeight : 50});
-    loader.image('beer', 'images/beerPic2.png');
-
     loader.image('brick', 'images/brick.png');
     loader.spritesheet('barrier', 'images/barrier.png', {frameWidth : 12, frameHeight : 10});
 
@@ -34,6 +31,8 @@ function loadSprites(loader){
     loader.image('stars10', 'images/stars/Scorpio.png');
     loader.image('stars11', 'images/stars/Taurus.png');
     loader.image('stars12', 'images/stars/Virgo.png');
+
+    loader.image('beer', 'images/beerPic2.png');
 
     loader.image('particle', 'images/particle.png');
 

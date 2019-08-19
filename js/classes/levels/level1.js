@@ -12,7 +12,7 @@ class Level1 extends Level{
         for(var i=0; i<13; i++){
             var enemy = new Enemy(this.game, marginRight1+90*i, 110, this.player, 'enemy1', 0x8000ff);
             enemy.initialVelocity.setTo(1,0)
-            this.enemies.add(enemy)
+            this.addEnemy(enemy)
         }
         
         for(var i=0; i<12; i++){
@@ -20,7 +20,7 @@ class Level1 extends Level{
             enemy.margins = 55
             enemy.speed = 55
             enemy.initialVelocity.setTo(1,0)
-            this.enemies.add(enemy)
+            this.addEnemy(enemy)
         }
     
         for(var i=0; i<13; i++){
@@ -29,7 +29,7 @@ class Level1 extends Level{
             enemy.margins = 8
             enemy.shootSpeed = 2500
             enemy.bulletSpeed = 200
-            this.enemies.add(enemy)
+            this.addEnemy(enemy)
         }
 
         var bluePrint = [[4,2,1,1,0],[6,10,12,12,14]];
@@ -37,9 +37,6 @@ class Level1 extends Level{
         this.createBricksGroup(2*this.game.width/6, 700, bluePrint)
         this.createBricksGroup(4*this.game.width/6, 700, bluePrint)
         this.createBricksGroup(5*this.game.width/6, 700, bluePrint)
-
-        this.setOverlap()
-        this.setCollider()
     }
 
     toNextLevel(){

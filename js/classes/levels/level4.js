@@ -3,7 +3,6 @@ class Level4 extends Level{
         super(game)
         this.bossApeared = false
         this.collapsed = false
-        this.obstaclesCollider = null
         this.hellBallCreated = false
     }
 
@@ -28,8 +27,6 @@ class Level4 extends Level{
             this.setEnemy(enemy, 1)
         }
 
-        this.obstaclesCollider = this.game.scene.physics.add.collider(this.player.sprite, this.obstacles.getSprite())
-
         var bluePrint = [[4,2,1,1,1,0,0],[2,6,8,8,8,10,10]]
         this.createBricksGroup(this.game.width/8, 680, bluePrint)
         this.createBricksGroup(2*this.game.width/8, 680, bluePrint)
@@ -37,9 +34,6 @@ class Level4 extends Level{
         this.createBricksGroup(5*this.game.width/8, 680, bluePrint)
         this.createBricksGroup(6*this.game.width/8, 680, bluePrint)
         this.createBricksGroup(7*this.game.width/8, 680, bluePrint)
-
-        this.setOverlap()
-        this.setCollider()
     }
 
     setEnemy(enemy, direction){
@@ -48,7 +42,7 @@ class Level4 extends Level{
         enemy.shootSpeed = 2200
         enemy.speed = 400
         enemy.lineHeight = 50
-        this.enemies.add(enemy)
+        this.addEnemy(enemy)
     }
 
     update(){
@@ -114,7 +108,6 @@ class Level4 extends Level{
                 cur.setVelocity((Math.random()-0.5)*70,-170*(1+Math.random()*0.5));
                 cur.setGravityY(500);
             }
-            this.obstaclesCollider.destroy();
             this.boss.hellBallSprite.setVelocityY(-260);
             this.collapsed = true;
         }

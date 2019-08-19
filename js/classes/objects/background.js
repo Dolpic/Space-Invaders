@@ -11,7 +11,7 @@ class Background extends Object{
     }
     
     createRandomStar(posX, posY){
-        var curImg = this.game.scene.add.image(-100,-100,'');
+        var curImg = this.game.scene.add.image(-100,-100,'')
         this.resetStar(curImg, posX, posY)
         return curImg
     }
@@ -35,5 +35,4 @@ class Background extends Object{
         star.setAlpha(scale)
         star.realPosY = posY
     }
-
 }
