@@ -78,10 +78,11 @@ class Level{
     }
 
     nextLevel(newLevel){
+        var oldLevel = this.game.currentLevel
         this.game.setSubtitle('');
-        this.game.currentLevel.destroy()
         this.game.currentLevel = newLevel
         this.game.currentLevel.create()
+        oldLevel.destroy()
     }
 
     addCollider(obj1, obj2, callback, context = this){

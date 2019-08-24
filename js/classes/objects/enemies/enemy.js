@@ -67,8 +67,10 @@ class Enemy extends Object{
         if(!this.invincible && this.life == 0){
             this.game.score += this.points
 
-            var beer = new Beer(this.game, this.sprite.getCenter())
-            this.game.currentLevel.addItem(beer)
+            if(Math.random() >= 0.75){
+                var beer = new Beer(this.game, this.sprite.getCenter())
+                this.game.currentLevel.addItem(beer)
+            }
 
             this.destroy()
         }else{

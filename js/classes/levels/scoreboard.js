@@ -23,6 +23,7 @@
  * 
  *  TODO niveau protection :
  *  - Ne pas avoir de variable qui vaut le score actuel
+ *  - Empêcher de répliquer une requête (garder 1 meilleur score par pseudo)
  * 
  *  -------------------------------------------------------------------
  */
@@ -131,6 +132,7 @@ class Scoreboard{
         var lineHeight     = this.game.height/25
         var fontSize       = 20
 
+        console.log(tabScores.length)
         for(var i = 0; i < Math.min(tabScores.length+1, 32); i++){
 
             if(i < tabScores.length)
@@ -138,7 +140,6 @@ class Scoreboard{
 
             if((i >= tabScores.length || this.game.score > curScore[1]) && !this.isInScoreboard ){
                 this.editableText  = this.createText("", baseX, baseY + i*lineHeight, fontSize).setFill("#ff0000")
-                //this.editableText.text = "" //Aucune idée de pourquoi il faut faire ca....
                 this.editableScore = this.createText(this.game.score, baseX + marginBetween, baseY + i*lineHeight, fontSize).setFill("#ff0000")
                 this.isInScoreboard = true
             }else{

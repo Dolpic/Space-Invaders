@@ -42,7 +42,8 @@ class SpaceInvaders{
     this.keyboard = this.scene.input.keyboard.createCursorKeys();
 
     //Force the font to load
-    this.scene.add.text(-100,-100,'Mock text').setFontFamily("courierCode")
+    this.scene.add.text(-100,-100,'Dummy').setFontFamily("courierCode")
+    this.scene.add.text(-100,-100,'Dummy').setFontFamily("silkscreen")
 
     this.background = new Background(this)
   }

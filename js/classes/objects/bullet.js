@@ -9,8 +9,8 @@ class Bullet extends Object{
     }
 
     update(){
-        if(this.sprite.x < this.sprite.width ||
-           this.sprite.y < this.sprite.height ||
+        if(this.sprite.x < -this.sprite.width ||
+           this.sprite.y < -this.sprite.height ||
            this.sprite.x > this.game.width+this.sprite.width ||
            this.sprite.y > this.game.height+this.sprite.height){
                 this.destroy()
