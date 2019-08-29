@@ -83,7 +83,7 @@ Je cherche vraiment plein d'idées! Faut vraiment pas hésiter à porposer des t
       this.baguetteMagique = baguetteMagique
     }
     
-    sortSuperPuisse(cible){
+    sortSuperPuissant(cible){
       this.mana -= 10
       // Etc...
     }
