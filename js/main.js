@@ -16,6 +16,9 @@ class SpaceInvaders{
         create: this.create.bind(this),
         update: this.update.bind(this)
       },
+      audio: {
+        disableWebAudio: true
+      },
 
       width:  canvasWidth,
       height: canvasHeight,
@@ -37,6 +40,7 @@ class SpaceInvaders{
     this.scene.load.setBaseURL('ressources/')
 
     loadSprites(this.scene.load)
+    loadMusics(this.scene.load)
 
     this.scene.input.keyboard.addCapture('UP, DOWN, LEFT, RIGHT')
     this.keyboard = this.scene.input.keyboard.createCursorKeys();
@@ -63,6 +67,8 @@ class SpaceInvaders{
     this.reset()
 
     this.background.create()
+
+    this.backgroundMusic = this.scene.sound.add('level1', { loop: true })
   }
 
   update(){

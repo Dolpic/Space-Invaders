@@ -34,6 +34,6 @@ class Level6 extends Level{
     }
 
     toNextLevel(){
-        setTimeout(this.nextLevel.bind(this), 3000, new Scoreboard(this.game))
+        setTimeout(this.nextLevel.bind(this), 3000, new Level7(this.game))
     }
 }

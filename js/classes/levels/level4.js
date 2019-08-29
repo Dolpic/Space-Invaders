@@ -9,7 +9,7 @@ class Level4 extends Level{
     create(){
         super.create("Level 4")
         
-        this.boss = new Boss(this.game, this.game.width/2, 3*this.game.height/8, this.player, 'boss1')
+        this.boss = new Boss1(this.game, this.game.width/2, 3*this.game.height/8, this.player)
         this.boss.sprite.setAlpha(0)
         this.boss.sprite.setScale(1.5)
         this.boss.sprite.setTint(0x00e3b1)

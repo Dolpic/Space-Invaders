@@ -38,7 +38,7 @@ class TitleScreen{
 
     nextLevel(){
         this.game.setSubtitle('')
-        this.game.currentLevel = new Level1(this.game)
+        this.game.currentLevel = new Level7(this.game)
         this.game.currentLevel.create()
         this.destroy()
     }

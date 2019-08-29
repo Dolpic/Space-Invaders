@@ -6,6 +6,7 @@ class Level{
         this.obstacles = new ObjectsTable()
         this.bricks    = new ObjectsTable()
         this.items     = new ObjectsTable()
+        //this.sounds    = new ObjectsTable()
         this.scoreBar  = new ScoreBar(this.game)
         this.started   = false
         this.finished  = false
@@ -140,6 +141,7 @@ class Level{
         this.scoreBar.destroy()
         this.bricks.destroy()
         this.items.destroy()
+        //this.sounds.destroy()
 
         for(var i=0; i<this.colliders.length; i++){
             this.game.scene.physics.world.removeCollider(this.colliders[i])

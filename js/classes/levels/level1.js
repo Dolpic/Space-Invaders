@@ -37,6 +37,8 @@ class Level1 extends Level{
         this.createBricksGroup(2*this.game.width/6, 700, bluePrint)
         this.createBricksGroup(4*this.game.width/6, 700, bluePrint)
         this.createBricksGroup(5*this.game.width/6, 700, bluePrint)
+
+        this.game.backgroundMusic.play()
     }
 
     toNextLevel(){
