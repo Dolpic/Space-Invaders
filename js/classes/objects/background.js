@@ -2,9 +2,10 @@ class Background extends Object{
     constructor(game){
         super(game, 0, 0, undefined)
         this.starTable = []
-        this.moveInCircle = true
+        this.moveInCircle = false
         this.maxDistance = Math.sqrt(Math.pow(this.game.width/2,2)+Math.pow(this.game.height/2,2))
-        this.speedRotation = 0.01
+        this.speedRotationRatio = 0
+        this.fallingSpeedRatio = 1
     }
 
     create(){
@@ -23,11 +24,11 @@ class Background extends Object{
 
             if(this.moveInCircle){
                 pos.set(this.starTable[i].x - this.game.width/2, this.game.height/2 - this.starTable[i].realPosY)
-                pos.setToPolar(pos.angle()+this.starTable[i].rotationSpeed, pos.length())
+                pos.setToPolar(pos.angle()+this.starTable[i].rotationSpeed*this.speedRotationRatio, pos.length())
                 pos.set(pos.x + this.game.width/2, this.game.height/2 - pos.y)
 
             }else{
-                pos.set(this.starTable[i].x, this.starTable[i].realPosY + Math.pow(this.starTable[i].scaleX, 3)/8)
+                pos.set(this.starTable[i].x, this.starTable[i].realPosY + this.fallingSpeedRatio*Math.pow(this.starTable[i].scaleX, 3)/8)
             }
 
             this.starTable[i].realPosY = pos.y
@@ -37,6 +38,21 @@ class Background extends Object{
                 this.resetStar(this.starTable[i], Math.random()*this.game.width, -20-Math.random()*30)
             }
     
+        }
+    }
+
+    changeToMoveInCircle(){
+
+        if(this.fallingSpeedRatio > 0){
+            this.fallingSpeedRatio = Math.max(this.fallingSpeedRatio-0.01, 0)
+            if(this.fallingSpeedRatio == 0){
+                console.log("OK")
+                this.moveInCircle = true
+            }
+            setTimeout(this.changeToMoveInCircle.bind(this), 10)
+        }else if(this.speedRotationRatio < 1){
+            this.speedRotationRatio = Math.min(this.speedRotationRatio+=0.001, 1)
+            setTimeout(this.changeToMoveInCircle.bind(this), 10)
         }
     }
 
@@ -53,6 +69,6 @@ class Background extends Object{
         star.setRotation(Math.random()*Math.PI*2).setScale(scale)
         star.setAlpha(scale)
         star.realPosY = posY
-        star.rotationSpeed = (Math.random()-0.5)*this.speedRotation
+        star.rotationSpeed = (Math.random()-0.5)*0.015
     }
 }

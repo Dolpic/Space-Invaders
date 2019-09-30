@@ -8,6 +8,7 @@ class Level7 extends Level{
 
         this.boss = new Boss2(this.game, this.game.width/2, this.game.height/2 - 30, this.player, 'boss2')
         this.boss.start()
+        this.enemies.add(this.boss)
 
         var bluePrint = [[4,3,2,1,0],[2,4,6,8,10]]
         for(var i=1; i<3; i++){
