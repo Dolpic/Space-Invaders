@@ -17,10 +17,12 @@ class Player extends Object{
     }
     
     shoot(){
+        if (this.game.currentLevel.started){
         var vector = new Phaser.Math.Vector2(0, -1)
         var bullet = new Bullet(this.game, this.sprite.getCenter(), this.bulletSpeed, 'bullet', vector)
         this.game.currentLevel.addPlayerBullet(bullet)
         this.lastShoot = Date.now()
+        }
     }
 
     update(){
